@@ -12,7 +12,7 @@ function App() {
   const [cipherType, setCipherType] = useState('caesar');
 
   return (
-    <Router>
+    <Router basename="/caesar-cipher-tool">
       <GlobalStyle />
       <Navigation />
       <Routes>
