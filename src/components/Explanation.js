@@ -1,9 +1,12 @@
 import React from 'react';
-import { Container, Typography, Box, Paper } from '@mui/material';
+import { Container, Typography, Box, Paper, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
 import KeyIcon from '@mui/icons-material/VpnKey';
 import HistoryIcon from '@mui/icons-material/History';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 import styled from '@emotion/styled';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -28,6 +31,13 @@ const HeaderBox = styled(Box)`
   display: flex;
   align-items: center;
   margin-bottom: 16px;
+`;
+
+const FAQsBox = styled(Box)`
+  padding: 16px;
+  background-color: #e0f7fa;
+  border-radius: 8px;
+  margin-top: 20px;
 `;
 
 const CodeBlock = ({ value }) => (
@@ -66,18 +76,6 @@ For example, if the shift is 3, then the letter A would be replaced by the lette
 
 The encrypted message is now “KHOOR”.
 
-### Advantages:
-- Easy to implement and use, making it suitable for beginners.
-- Can be physically implemented with rotating disks or cards.
-- Requires only a small set of pre-shared information.
-- Can be modified easily to create a more secure variant.
-
-### Disadvantages:
-- Not secure against modern decryption methods.
-- Vulnerable to brute force attacks.
-- Not suitable for long text encryption as it is easy to crack.
-- Does not provide confidentiality, integrity, and authenticity.
-
 ### Fun Fact:
 Did you know Julius Caesar used this cipher to send messages to his generals? Imagine him saying, "Hey, let's meet at the battlefield," but in ciphered text!
 
@@ -91,62 +89,68 @@ An example of decryption in the Caesar cipher is decrypting the message KHOOR. I
 **What are keys in Caesar cipher?**
 In the Caesar cipher, the key is a letter that shows how many places to shift each letter in the message. For example, a key D means “shift 3 places,” and a key M means “shift 12 places.” A key A means “do not shift,” and a key Z means either “shift 25 places” or “shift one place backwards.”
     `,
+    advantages: [
+      "Easy to implement and use, making it suitable for beginners.",
+      "Can be physically implemented with rotating disks or cards.",
+      "Requires only a small set of pre-shared information.",
+      "Can be modified easily to create a more secure variant."
+    ],
+    disadvantages: [
+      "Not secure against modern decryption methods.",
+      "Vulnerable to brute force attacks.",
+      "Not suitable for long text encryption as it is easy to crack.",
+      "Does not provide confidentiality, integrity, and authenticity."
+    ]
   },
-  vigenere: {
-    title: "Vigenère Cipher",
-    icon: <KeyIcon fontSize="large" />,
+  rot13: {
+    title: "ROT13 Cipher",
+    icon: <RotateLeftIcon fontSize="large" />,
     description: `
-The Vigenère Cipher is a method of encrypting alphabetic text by using a simple form of polyalphabetic substitution. This method uses a keyword to generate different Caesar Ciphers for different letters in the message.
+The ROT13 Cipher is a special case of the Caesar Cipher with a shift of 13. This means that each letter is shifted 13 places forward in the alphabet. For example, 'A' becomes 'N', 'B' becomes 'O', and so on. Applying ROT13 twice returns the original text.
 
-### What is Vigenère Cipher Technique?
-Imagine you're using a secret code word to send messages to your friends. Each letter in your message is shifted by a different amount, determined by the letters in the keyword. It's like a Caesar Cipher, but with a twist!
+### What is ROT13 Cipher Technique?
+Imagine a simple way to scramble your text so that it becomes unreadable to others unless they apply the same scrambling technique. ROT13 does exactly that by shifting each letter by 13 positions in the alphabet.
 
 ### Example:
-- **Plaintext:** ATTACKATDAWN
-- **Keyword:** LEMON
+- **Plaintext:** HELLO
+- **Ciphertext:** URYYB
 
-To encrypt, we repeat the keyword to match the length of the plaintext:
-LEMONLEMONLE
-
-Next, we shift each letter of the plaintext by the number of positions defined by the corresponding letter of the keyword (A=0, B=1, ..., Z=25).
-
-**Encryption:**
-- A (shift by L) → L
-- T (shift by E) → X
-- T (shift by M) → F
-- A (shift by O) → O
-- C (shift by N) → P
-- K (shift by L) → V
-- A (shift by E) → E
-- T (shift by M) → F
-- D (shift by O) → R
-- A (shift by N) → N
-- W (shift by L) → H
-- N (shift by E) → R
-
-**Ciphertext:** LXFOPVEFRNHR
+**Encryption and Decryption:**
+- A (shift 13) → N
+- B (shift 13) → O
+- C (shift 13) → P
+- D (shift 13) → Q
+- ...
 
 ### Advantages:
-- Harder to break than Caesar Cipher due to the use of multiple shifts.
-- Effective for encrypting longer texts.
+- Extremely simple to implement.
+- Can be used as a basic obfuscation method.
 
 ### Disadvantages:
-- Still susceptible to frequency analysis if the keyword is known or guessed.
-- Requires a shared keyword between sender and receiver.
+- Provides no real cryptographic security.
+- Easily reversible by applying the same algorithm.
 
 ### Fun Fact:
-The Vigenère Cipher was once considered unbreakable and was known as "le chiffre indéchiffrable" (the indecipherable cipher) until it was broken in the 19th century.
+ROT13 is often used in online forums to hide spoilers, puzzle solutions, or sensitive content that readers might not want to see immediately.
 
 ### Frequently Asked Questions (FAQs):
-**What is the Vigenère cipher?**
-The Vigenère Cipher is a method of encrypting alphabetic text by using a keyword to apply a series of Caesar Ciphers to the plaintext.
+**What is the ROT13 cipher?**
+The ROT13 Cipher is a method of encoding text by shifting each letter 13 places forward in the alphabet. It is a special case of the Caesar Cipher.
 
-**How do you encrypt using the Vigenère cipher?**
-To encrypt using the Vigenère cipher, align the keyword with the plaintext, then shift each letter of the plaintext by the number of positions defined by the corresponding letter of the keyword.
+**How do you encrypt using the ROT13 cipher?**
+To encrypt using the ROT13 cipher, shift each letter in the plaintext by 13 positions in the alphabet.
 
-**What makes the Vigenère cipher more secure than the Caesar cipher?**
-The Vigenère cipher is more secure than the Caesar cipher because it uses multiple shifts, making it harder to break through simple brute force attacks.
+**Why is the ROT13 cipher not secure?**
+The ROT13 cipher is not secure because it is easily reversible by applying the same algorithm, providing no real cryptographic security.
     `,
+    advantages: [
+      "Extremely simple to implement.",
+      "Can be used as a basic obfuscation method."
+    ],
+    disadvantages: [
+      "Provides no real cryptographic security.",
+      "Easily reversible by applying the same algorithm."
+    ]
   },
   atbash: {
     title: "Atbash Cipher",
@@ -189,6 +193,14 @@ To encrypt or decrypt using the Atbash cipher, replace each letter in the plaint
 **Why is the Atbash cipher not secure?**
 The Atbash cipher is not secure because it has only one possible key and provides no real security against modern cryptographic attacks.
     `,
+    advantages: [
+      "Simple to use and understand.",
+      "No need for a key or complex calculations."
+    ],
+    disadvantages: [
+      "Very easy to break as it has only one possible key.",
+      "Provides no real security in modern contexts."
+    ]
   },
   affine: {
     title: "Affine Cipher",
@@ -247,6 +259,14 @@ To encrypt using the Affine cipher, convert each letter to its numeric equivalen
 **Why are 'a' and 26 required to be coprime in the Affine cipher?**
 'a' and 26 must be coprime to ensure that the encryption function is reversible and a unique decryption function exists.
     `,
+    advantages: [
+      "More secure than simple substitution ciphers.",
+      "Uses mathematical functions for encryption and decryption."
+    ],
+    disadvantages: [
+      "Requires the keys 'a' and 'b' to be shared securely.",
+      "Not as secure as modern encryption techniques."
+    ]
   },
 };
 
@@ -279,8 +299,36 @@ const Explanation = ({ cipherType }) => {
             </Typography>
           </HeaderBox>
           <ReactMarkdown components={renderers}>
-            {explanation.description}
+            {explanation.description.split("### Advantages:")[0]}
           </ReactMarkdown>
+          <List>
+            <Typography variant="h5">Advantages:</Typography>
+            {explanation.advantages.map((advantage, index) => (
+              <ListItem key={index}>
+                <ListItemIcon>
+                  <CheckCircleIcon color="success" />
+                </ListItemIcon>
+                <ListItemText primary={advantage} />
+              </ListItem>
+            ))}
+          </List>
+          <List>
+            <Typography variant="h5">Disadvantages:</Typography>
+            {explanation.disadvantages.map((disadvantage, index) => (
+              <ListItem key={index}>
+                <ListItemIcon>
+                  <CancelIcon color="error" />
+                </ListItemIcon>
+                <ListItemText primary={disadvantage} />
+              </ListItem>
+            ))}
+          </List>
+          <FAQsBox>
+            <Typography variant="h5">Frequently Asked Questions (FAQs):</Typography>
+            <ReactMarkdown components={renderers}>
+              {explanation.description.split("### Frequently Asked Questions (FAQs):")[1]}
+            </ReactMarkdown>
+          </FAQsBox>
         </ExplanationBox>
       </Container>
     </Section>
